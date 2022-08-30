@@ -7,6 +7,7 @@ saveButton.style.display = "none";
 // DISPLAY POSTS
 const postsArea = document.querySelector(".posts");
 const template = document.querySelector("template");
+const form = document.querySelector("form");
 
 function display() {
     cleanPostsArea();
@@ -77,11 +78,13 @@ function editPost() {
     const content = this.querySelector(".card-text").textContent;
     titleInput.value = title;
     contentInput.value = content;
+    let saveButtonNew = saveButton.cloneNode(true);
+    saveButton.remove();
+    saveButton = saveButtonNew;  // clone and replace to get rid of all previous eventListeners
     addPostButton.style.display = "none";
+    form.appendChild(saveButton);
     saveButton.style.display = "inline";
     anchor.scrollIntoView();
-    let saveButton2 = saveButton.clone(); 
-    saveButton = saveButton2;  // clone and replace to get rid of all previous eventListeners
     saveButton.addEventListener("click", (e) => {
         e.preventDefault();
         const title = titleInput.value;
